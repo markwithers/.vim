@@ -28,3 +28,6 @@
 [submodule "bundle/wildfire.vim"]
   path = bundle/wildfire.vim
   url = https://github.com/gcmt/wildfire.vim.git
+[submodule "bundle/github-issues"]
+	path = bundle/github-issues
+	url = git@github.com:jaxbot/github-issues.vim.git
