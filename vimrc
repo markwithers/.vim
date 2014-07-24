@@ -151,7 +151,7 @@ if has("gui_running")
     set guioptions-=R
     set guioptions-=m
     set guifont=Monaco\ 9.5
-    colorscheme base16-eighties
+    colorscheme molokai
 endif
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -188,6 +188,9 @@ set tw=500
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
+
+" Lints XML in the current file
+map <leader>xx :%!xmllint --format -<CR>
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
@@ -322,7 +325,7 @@ map <leader>s? z=
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
-" Quickly open a buffer for scripbble
+" Quickly open a buffer for scribbling
 map <leader>q :e ~/buffer<cr>
 
 " Toggle paste mode on and off
