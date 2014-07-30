@@ -264,7 +264,7 @@ set viminfo^=%
 set laststatus=2
 
 " Format the status line
-set statusline=\ %{fugitive#statusline()}\ %{HasPaste()}%t%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l/%L
+set statusline=\ %{fugitive#statusline()}\ %{HasPaste()}%F%m%r%h\ %w\ \ \ Line:\ %l/%L
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
