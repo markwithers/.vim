@@ -34,6 +34,7 @@
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" (With modification and updates by Jeff)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -63,6 +64,10 @@ let g:mapleader = ","
 
 " Fast saving
 nmap <leader>w :wa<cr>
+
+" quick-edit vimrc (http://learnvimscriptthehardway.stevelosh.com/chapters/07.html)
+nmap <leader>ev :vsplit $MYVIMRC<cr>
+nmap <leader>sv :source $MYVIMRC<cr>
 
 set tags=tags;/
 
@@ -259,7 +264,7 @@ set viminfo^=%
 set laststatus=2
 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+set statusline=\ %{fugitive#statusline()}\ %{HasPaste()}%t%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l/%L
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
@@ -303,6 +308,7 @@ let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -327,6 +333,10 @@ map <leader>q :e ~/buffer<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
+
+" quick paste last yank
+map <leader>p "0p
+map <leader>P "0P
 
 " Fullscreen
 map <silent> <F11> :exe "!wmctrl -r ".v:servername." -b toggle,fullscreen"<CR>
