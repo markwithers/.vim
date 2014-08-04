@@ -341,6 +341,9 @@ map <leader>P "0P
 " Fullscreen
 map <silent> <F11> :exe "!wmctrl -r ".v:servername." -b toggle,fullscreen"<CR>
 
+autocmd BufReadPost fugitive://* set bufhidden=delete
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mark's mis-spellings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
