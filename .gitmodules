@@ -34,3 +34,6 @@
 [submodule "bundle/vim-mustache"]
   path = bundle/vim-mustache
   url = git@github.com:mustache/vim-mustache-handlebars.git
+[submodule "bundle/syntastic"]
+	path = bundle/syntastic
+	url = git@github.com:scrooloose/syntastic.git
