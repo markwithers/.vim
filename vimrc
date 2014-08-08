@@ -345,6 +345,8 @@ map <silent> <F11> :exe "!wmctrl -r ".v:servername." -b toggle,fullscreen"<CR>
 
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
+set formatoptions-=c formatoptions-=r formatoptions-=o
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mark's mis-spellings
