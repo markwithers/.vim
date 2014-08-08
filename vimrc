@@ -346,6 +346,33 @@ map <silent> <F11> :exe "!wmctrl -r ".v:servername." -b toggle,fullscreen"<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>cs :CoffeeCompile<cr>
 
+" Coffeescript Linting
+let g:syntastic_coffee = ['coffeelint']
+
+" Using our style guide
+let g:syntastic_coffee_coffeelint_args = "--csv --file ~/.vim/bundle/coffeescript-style-guide/coffeelint.json" 
+
+" Set mode to active (runs whenever you save) and use the location list (:ll)
+let g:syntastic_mode_map = { "mode": "active" }
+let g:syntastic_always_populate_loc_list = 1
+
+" checks on open
+let g:syntastic_check_on_open = 1
+
+" highlight in place
+let g:syntastic_enable_signs = 1
+let g:syntastic_enable_highlighting = 1
+
+" Display Errors list
+map <leader>e :Errors<cr>
+
+" Close Errors list
+map <leader>lc :lclose<cr>
+
+" set and configure line width highlightning
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%80v', 100)
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
