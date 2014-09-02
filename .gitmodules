@@ -34,9 +34,9 @@
 [submodule "bundle/vim-mustache"]
   path = bundle/vim-mustache
   url = git@github.com:mustache/vim-mustache-handlebars.git
-[submodule "bundle/syntastic"]
-	path = bundle/syntastic
-	url = https://github.com/scrooloose/syntastic.git
 [submodule "bundle/coffeescript-style-guide"]
 	path = bundle/coffeescript-style-guide
 	url = git@github.com:bluespeckfinancial/coffeescript-style-guide.git
+[submodule "bundle/vim-syntastic"]
+	path = bundle/vim-syntastic
+	url = https://github.com/scrooloose/syntastic.git
