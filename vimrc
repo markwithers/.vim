@@ -344,6 +344,7 @@ map <leader>P "0P
 map <silent> <F11> :exe "!wmctrl -r ".v:servername." -b toggle,fullscreen"<CR>
 
 autocmd BufReadPost fugitive://* set bufhidden=delete
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 set formatoptions-=c formatoptions-=r formatoptions-=o
 
