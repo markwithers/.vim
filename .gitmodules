@@ -1,15 +1,9 @@
-[submodule "bundle/ag"]
-	path = bundle/ag
-	url = https://github.com/rking/ag.vim.git
 [submodule "bundle/bufexplorer"]
   path = bundle/bufexplorer
   url = https://github.com/corntrace/bufexplorer.git
 [submodule "bundle/ctrlp"]
   path = bundle/ctrlp
   url = https://github.com/kien/ctrlp.vim.git
-[submodule "bundle/mustache"]
-  path = bundle/mustache
-  url = https://github.com/juvenn/mustache.vim.git
 [submodule "bundle/supertab"]
   path = bundle/supertab
   url = https://github.com/ervandew/supertab.git
@@ -28,12 +22,27 @@
 [submodule "bundle/wildfire.vim"]
   path = bundle/wildfire.vim
   url = https://github.com/gcmt/wildfire.vim.git
-[submodule "bundle/github-issues"]
-	path = bundle/github-issues
-	url = git@github.com:jaxbot/github-issues.vim.git
 [submodule "bundle/vim-unimpaired"]
 	path = bundle/vim-unimpaired
 	url = git@github.com:tpope/vim-unimpaired.git
 [submodule "bundle/vim-commentary"]
 	path = bundle/vim-commentary
 	url = git://github.com/tpope/vim-commentary.git
+[submodule "bundle/vim-javascript"]
+  path = bundle/vim-javascript
+  url = https://github.com/pangloss/vim-javascript.git
+[submodule "bundle/vim-jsx"]
+  path = bundle/vim-jsx
+  url = https://github.com/mxw/vim-jsx.git
+[submodule "bundle/vim-mustache"]
+  path = bundle/vim-mustache
+  url = git@github.com:mustache/vim-mustache-handlebars.git
+[submodule "bundle/coffeescript-style-guide"]
+	path = bundle/coffeescript-style-guide
+	url = git@github.com:bluespeckfinancial/coffeescript-style-guide.git
+[submodule "bundle/vim-syntastic"]
+	path = bundle/vim-syntastic
+	url = https://github.com/scrooloose/syntastic.git
+[submodule "bundle/lightline"]
+	path = bundle/lightline
+	url = https://github.com/itchyny/lightline.vim.git
