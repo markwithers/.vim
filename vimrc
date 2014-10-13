@@ -41,6 +41,7 @@
 
 " Pathogen package manager
 execute pathogen#infect()
+Helptags
 
 " show line numbers
 set number
