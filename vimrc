@@ -34,13 +34,13 @@
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Pathogen package manager
 execute pathogen#infect()
+
+" Automatically build help files for plugins
 Helptags
 
 " show line numbers
@@ -65,6 +65,7 @@ let g:mapleader = ","
 " Fast saving
 nmap <leader>w :wa<cr>
 
+" Recursively check up the folder structure for tag files
 set tags=tags;/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -252,9 +253,13 @@ autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
      \   exe "normal! g`\"" |
      \ endif
+
 " Remember info about open buffers on close
 set viminfo^=%
 
+" Set the tab line status back to default (I think it is change by a plugin)
+" showtabline=1 only shows the tab bar when there are two or more tabs 
+set showtabline=1
 
 """"""""""""""""""""""""""""""
 " => Status line
@@ -268,6 +273,7 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Make 0 go to the first text on the line, not the far left. More useful
 map 0 ^
 
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
@@ -276,9 +282,9 @@ func! DeleteTrailingWS()
   %s/\s\+$//ge
   exe "normal `z"
 endfunc
+
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => grep searching and cope displaying
@@ -301,9 +307,7 @@ map <leader>p :cp<cr>
 " Ctrl+P
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-
 let g:ctrlp_working_path_mode = 'ra'
-
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
@@ -319,7 +323,6 @@ map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -332,8 +335,10 @@ map <leader>q :e ~/buffer<cr>
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
-" Fullscreen
-map <silent> <F11> :exe "!wmctrl -r ".v:servername." -b toggle,fullscreen"<CR>
+" Fullscreen on windows. More trouble than it's worth right now
+" I want to only enable this if the machine is Windows
+" I'll do it one day (Next time I use windows)
+" map <silent> <F11> :exe "!wmctrl -r ".v:servername." -b toggle,fullscreen"<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mark's mis-spellings
@@ -345,12 +350,13 @@ map <silent> <F11> :exe "!wmctrl -r ".v:servername." -b toggle,fullscreen"<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Coffee script
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ,cs compiles Coffeescript. Shows the resulting JS in a horizontal split
 map <leader>cs :CoffeeCompile<cr>
 
 " Coffeescript Linting
 let g:syntastic_coffee = ['coffeelint']
 
-" Using our style guide
+" Use the installed style guide
 let g:syntastic_coffee_coffeelint_args = "--csv --file ~/.vim/bundle/coffeescript-style-guide/coffeelint.json" 
 
 " Set mode to active (runs whenever you save) and use the location list (:ll)
@@ -377,7 +383,6 @@ call matchadd('ColorColumn', '\%80v', 100)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
@@ -405,7 +410,6 @@ function! VisualSelection(direction) range
     let @" = l:saved_reg
 endfunction
 
-
 " Returns true if paste mode is enabled
 function! HasPaste()
     if &paste
@@ -416,6 +420,7 @@ endfunction
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
+
 function! <SID>BufcloseCloseIt()
    let l:currentBufNum = bufnr("%")
    let l:alternateBufNum = bufnr("#")
@@ -434,7 +439,6 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
-
 
 function! QuickFixOpenAll()
     if empty(getqflist())
