@@ -72,6 +72,10 @@ nmap <leader>sv :source $MYVIMRC<cr>
 
 set tags=tags;/
 
+nmap <leader>v :vsplit <cr>
+nmap <leader>s :split <cr>
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
