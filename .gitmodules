@@ -46,3 +46,9 @@
 [submodule "bundle/easymotion"]
 	path = bundle/easymotion
 	url = https://github.com/Lokaltog/vim-easymotion.git
+[submodule "bundle/jsx"]
+	path = bundle/jsx
+	url = https://github.com/mxw/vim-jsx.git
+[submodule "bundle/cjsx"]
+	path = bundle/cjsx
+	url = https://github.com/mtscout6/vim-cjsx.git
