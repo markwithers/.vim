@@ -130,14 +130,12 @@ set splitright
 " Enable syntax highlighting
 syntax enable
 
-" colour scheme
-colorscheme molokai
-
 " extra colour options
 set background=dark
-let g:molokai_original = 1
-let g:rehash256 = 1
 set t_Co=256
+
+" colour scheme
+colorscheme molokai
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -150,7 +148,6 @@ if has("gui_running")
     set guioptions-=R
     set guioptions-=m
     set guifont=Monaco\ 9.5
-    colorscheme molokai
 endif
 
 " Set utf8 as standard encoding and en_US as the standard language
