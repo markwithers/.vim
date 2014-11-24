@@ -131,11 +131,12 @@ set splitright
 syntax enable
 
 " extra colour options
+let base16colorspace=256
 set background=dark
 set t_Co=256
 
 " colour scheme
-colorscheme molokai
+colorscheme base16-mocha
 
 " Set extra options when running in GUI mode
 if has("gui_running")
