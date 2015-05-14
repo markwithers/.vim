@@ -1,0 +1,1 @@
+.haskell-vim-now/.vim

@@ -136,7 +136,7 @@ set background=dark
 set t_Co=256
 
 " colour scheme
-colorscheme base16-mocha
+colorscheme atom-dark-256
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -148,7 +148,8 @@ if has("gui_running")
     set guioptions-=r
     set guioptions-=R
     set guioptions-=m
-    set guifont=Monaco\ 9.5
+    set guifont=Monaco\ 10
+    colorscheme atom-dark-256
 endif
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -341,6 +342,7 @@ map <leader>pp :setlocal paste!<cr>
 :iabbrev consoel console
 :iabbrev conseol console
 :iabbrev funciton function
+:iabbrev flase false
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Coffee script
@@ -370,10 +372,6 @@ map <leader>e :Errors<cr>
 
 " Close Errors list
 map <leader>lc :lclose<cr>
-
-" set and configure line width highlightning
-highlight ColorColumn ctermbg=magenta
-call matchadd('ColorColumn', '\%80v', 100)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
