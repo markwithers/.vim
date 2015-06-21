@@ -17,7 +17,7 @@ Set up
 Adding new plugins
 -----------------
 
-1. cd ~/.vim
+1. cd ~/.vim/bundle
 2. git submodule init
 3. git submodule add git://github.com/tpope/vim-fugitive.git bundle/vim-fugitive
 4. git commit -m 'Added vim-fugitive'
