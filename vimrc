@@ -353,6 +353,9 @@ map <leader>cs :CoffeeCompile<cr>
 " Coffeescript Linting
 let g:syntastic_coffee = ['coffeelint']
 
+" Haskell linting
+let g:syntastic_haskell_checkers = ['hdevtools']
+
 " Use the installed style guide
 let g:syntastic_coffee_coffeelint_args = "--csv --file ~/.vim/bundle/coffeescript-style-guide/coffeelint.json" 
 
