@@ -348,6 +348,7 @@ map <leader>pp :setlocal paste!<cr>
 " => Filetypes for gf
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 :set suffixesadd+=.js,.coffee,.cjsx,.json,.scss,.hs,.lhs
+map gF $hgf
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Coffee script
