@@ -345,6 +345,11 @@ map <leader>pp :setlocal paste!<cr>
 :iabbrev flase false
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Filetypes for gf
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+:set suffixesadd+=.js,.coffee,.cjsx,.json,.scss,.hs,.lhs
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Coffee script
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ,cs compiles Coffeescript. Shows the resulting JS in a horizontal split
