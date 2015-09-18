@@ -64,3 +64,9 @@
 [submodule "bundle/hdevtools"]
 	path = bundle/hdevtools
 	url = git@github.com:bitc/vim-hdevtools.git
+[submodule "bundle/fzf"]
+	path = bundle/fzf
+	url = git@github.com:junegunn/fzf.vim.git
+[submodule "fzf"]
+	path = fzf
+	url = git@github.com:junegunn/fzf.git

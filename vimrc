@@ -336,6 +336,8 @@ map <leader>pp :setlocal paste!<cr>
 " I'll do it one day (Next time I use windows)
 " map <silent> <F11> :exe "!wmctrl -r ".v:servername." -b toggle,fullscreen"<CR>
 
+set rtp+=~/.fzf
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mark's mis-spellings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -355,6 +357,10 @@ map gF $hgf
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ,cs compiles Coffeescript. Shows the resulting JS in a horizontal split
 map <leader>cs :CoffeeCompile<cr>
+
+" JS linting
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
 
 " Coffeescript Linting
 let g:syntastic_coffee = ['coffeelint']
