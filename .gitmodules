@@ -67,3 +67,6 @@
 [submodule "fzf"]
 	path = fzf
 	url = git@github.com:junegunn/fzf.git
+[submodule "bundle/haskell_syntax"]
+	path = bundle/haskell_syntax
+	url = git@github.com:urso/haskell_syntax.vim.git
