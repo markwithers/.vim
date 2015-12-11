@@ -303,13 +303,6 @@ map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
 map <leader>n :cn<cr>
 map <leader>p :cp<cr>
 
-" Ctrl+P
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -334,12 +327,9 @@ map <leader>q :e ~/buffer<cr>
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
-" Fullscreen on windows. More trouble than it's worth right now
-" I want to only enable this if the machine is Windows
-" I'll do it one day (Next time I use windows)
-" map <silent> <F11> :exe "!wmctrl -r ".v:servername." -b toggle,fullscreen"<CR>
-
+" FZF support
 set rtp+=~/.fzf
+map <F2> :FZF<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mark's mis-spellings
@@ -356,7 +346,7 @@ set rtp+=~/.fzf
 map gF $hgf
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Coffee script
+" => Linting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ,cs compiles Coffeescript. Shows the resulting JS in a horizontal split
 map <leader>cs :CoffeeCompile<cr>
