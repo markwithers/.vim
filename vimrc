@@ -353,7 +353,7 @@ map <leader>cs :CoffeeCompile<cr>
 
 " JS linting
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
+autocmd FileType javascript let b:syntastic_checkers = findfile('.eslintrc', '.;') != '' ? ['eslint'] : ['eslint']
 
 " Coffeescript Linting
 let g:syntastic_coffee = ['coffeelint']
