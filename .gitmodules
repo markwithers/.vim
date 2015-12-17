@@ -73,3 +73,6 @@
 [submodule "bundle/haskell-vim"]
 	path = bundle/haskell-vim
 	url = git@github.com:neovimhaskell/haskell-vim.git
+[submodule "bundle/syntastic-local-eslint"]
+	path = bundle/syntastic-local-eslint
+	url = git@github.com:mtscout6/syntastic-local-eslint.vim.git
