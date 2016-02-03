@@ -76,3 +76,9 @@
 [submodule "bundle/syntastic-local-eslint"]
 	path = bundle/syntastic-local-eslint
 	url = git@github.com:mtscout6/syntastic-local-eslint.vim.git
+[submodule "bundle/vim-markdown"]
+	path = bundle/vim-markdown
+	url = git://github.com/gabrielelana/vim-markdown.git
+[submodule "bundle/elm-vim"]
+	path = bundle/elm-vim
+	url = https://github.com/lambdatoast/elm.vim.git

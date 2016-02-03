@@ -316,6 +316,26 @@ map <leader>sa zg
 map <leader>s? z=
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Lightline setup
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:lightline = {
+    \   'component_function': {
+    \     'filename': 'LightLineFilename'
+    \   },
+    \   'component': {
+    \     'percent': '',
+    \     'fileencoding': '',
+    \     'fileformat': ''
+    \   }
+    \ }
+
+let g:lightline.subseparator = { 'left': '', 'right': '' }
+
+function! LightLineFilename()
+  return expand('%')
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remove the Windows ^M - when the encodings gets messed up
@@ -337,6 +357,7 @@ map <F2> :FZF<cr>
 :iabbrev consoel console
 :iabbrev conseol console
 :iabbrev funciton function
+:iabbrev retrun return
 :iabbrev flase false
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
