@@ -380,7 +380,7 @@ autocmd FileType javascript let b:syntastic_checkers = findfile('.eslintrc', '.;
 let g:syntastic_coffee = ['coffeelint']
 
 " Haskell linting
-let g:syntastic_haskell_checkers = ['hdevtools']
+let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
 
 " Use the installed style guide
 let g:syntastic_coffee_coffeelint_args = "--csv --file ~/.vim/bundle/coffeescript-style-guide/coffeelint.json" 
@@ -401,6 +401,14 @@ map <leader>e :Errors<cr>
 
 " Close Errors list
 map <leader>lc :lclose<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => ghc-mod
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <silent> tw :GhcModTypeInsert<CR>
+map <silent> ts :GhcModSplitFunCase<CR>
+map <silent> tq :GhcModType<CR>
+map <silent> te :GhcModTypeClear<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -460,18 +468,4 @@ function! <SID>BufcloseCloseIt()
    if buflisted(l:currentBufNum)
      execute("bdelete! ".l:currentBufNum)
    endif
-endfunction
-
-function! QuickFixOpenAll()
-    if empty(getqflist())
-        return
-    endif
-    let s:prev_val = ""
-    for d in getqflist()
-        let s:curr_val = bufname(d.bufnr)
-        if (s:curr_val != s:prev_val)
-            exec "edit " . s:curr_val
-        endif
-        let s:prev_val = s:curr_val
-    endfor
 endfunction

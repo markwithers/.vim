@@ -82,3 +82,12 @@
 [submodule "bundle/elm-vim"]
 	path = bundle/elm-vim
 	url = https://github.com/lambdatoast/elm.vim.git
+[submodule "bundle/ghcmod-vim"]
+	path = bundle/ghcmod-vim
+	url = git@github.com:eagletmt/ghcmod-vim.git
+[submodule "bundle/vimproc"]
+	path = bundle/vimproc
+	url = git@github.com:Shougo/vimproc.vim.git
+[submodule "bundle/hlint-refactor-vim"]
+	path = bundle/hlint-refactor-vim
+	url = git@github.com:mpickering/hlint-refactor-vim.git
