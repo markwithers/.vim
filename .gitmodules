@@ -4,6 +4,7 @@
 [submodule "bundle/bufexplorer"]
   path = bundle/bufexplorer
   url = https://github.com/corntrace/bufexplorer.git
+  ignore = dirty
 [submodule "bundle/supertab"]
   path = bundle/supertab
   url = https://github.com/ervandew/supertab.git
@@ -64,9 +65,11 @@
 [submodule "bundle/fzf"]
 	path = bundle/fzf
 	url = git@github.com:junegunn/fzf.vim.git
+  ignore = dirty
 [submodule "fzf"]
 	path = fzf
 	url = git@github.com:junegunn/fzf.git
+  ignore = dirty
 [submodule "bundle/haskell_syntax"]
 	path = bundle/haskell_syntax
 	url = git@github.com:urso/haskell_syntax.vim.git
@@ -82,6 +85,7 @@
 [submodule "bundle/elm-vim"]
 	path = bundle/elm-vim
 	url = https://github.com/lambdatoast/elm.vim.git
+  ignore = dirty
 [submodule "bundle/ghcmod-vim"]
 	path = bundle/ghcmod-vim
 	url = git@github.com:eagletmt/ghcmod-vim.git
