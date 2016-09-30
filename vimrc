@@ -37,6 +37,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 " Pathogen package manager
 execute pathogen#infect()
 
@@ -67,6 +68,10 @@ nmap <leader>w :wa<cr>
 
 " Recursively check up the folder structure for tag files
 set tags=tags;/
+
+" Sets line limit to 100, and highlights the 100th column for a visual guide
+set columns=100
+set cc=100
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -130,13 +135,8 @@ set splitright
 " Enable syntax highlighting
 syntax enable
 
-" extra colour options
-let base16colorspace=256
-set background=dark
-set t_Co=256
-
 " colour scheme
-colorscheme atom-dark-256
+colorscheme Tomorrow-Night
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -149,8 +149,13 @@ if has("gui_running")
     set guioptions-=R
     set guioptions-=m
     set guifont=Monaco\ 10
-    colorscheme atom-dark-256
+    colorscheme Tomorrow-Night
 endif
+
+" extra colour options
+let base16colorspace=256
+set background=dark
+set t_Co=256
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -257,6 +262,11 @@ set viminfo^=%
 " showtabline=1 only shows the tab bar when there are two or more tabs 
 set showtabline=1
 
+" Neovim terminal mode remappings
+if has('nvim')
+  :tnoremap <Esc> <C-\><C-n>
+endif
+
 """"""""""""""""""""""""""""""
 " => Status line
 """"""""""""""""""""""""""""""
@@ -284,6 +294,7 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 autocmd BufWrite *.cjsx :call DeleteTrailingWS()
 autocmd BufWrite *.js :call DeleteTrailingWS()
 autocmd BufWrite *.jsx :call DeleteTrailingWS()
+autocmd BufWrite *.json :call DeleteTrailingWS()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => grep searching and cope displaying
@@ -364,7 +375,7 @@ map <F2> :FZF<cr>
 " => Filetypes for gf
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 :set suffixesadd+=.js,.coffee,.cjsx,.json,.scss,.hs,.lhs
-map gF $hgf
+map gF $F'hgf
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Linting
