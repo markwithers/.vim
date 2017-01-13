@@ -53,9 +53,6 @@
 [submodule "semantic-highlight.vim"]
 	path = semantic-highlight.vim
 	url = git@github.com:jaxbot/semantic-highlight.vim.git
-[submodule "bundle/ghc-mod-vim"]
-	path = bundle/ghc-mod-vim
-	url = https://github.com/eagletmt/ghcmod-vim.git
 [submodule "bundle/vimproc.vim"]
 	path = bundle/vimproc.vim
 	url = git@github.com:Shougo/vimproc.vim.git
@@ -86,12 +83,12 @@
 	path = bundle/elm-vim
 	url = https://github.com/lambdatoast/elm.vim.git
   ignore = dirty
-[submodule "bundle/ghcmod-vim"]
-	path = bundle/ghcmod-vim
-	url = git@github.com:eagletmt/ghcmod-vim.git
 [submodule "bundle/vimproc"]
 	path = bundle/vimproc
 	url = git@github.com:Shougo/vimproc.vim.git
 [submodule "bundle/hlint-refactor-vim"]
 	path = bundle/hlint-refactor-vim
 	url = git@github.com:mpickering/hlint-refactor-vim.git
+[submodule "bundle/vim-markdown-preview"]
+	path = bundle/vim-markdown-preview
+	url = git@github.com:JamshedVesuna/vim-markdown-preview.git

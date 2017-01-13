@@ -69,8 +69,7 @@ nmap <leader>w :wa<cr>
 " Recursively check up the folder structure for tag files
 set tags=tags;/
 
-" Sets line limit to 100, and highlights the 100th column for a visual guide
-set columns=100
+" highlights the 100th column for a visual guide to good length
 set cc=100
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -392,6 +391,7 @@ let g:syntastic_coffee = ['coffeelint']
 
 " Haskell linting
 let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
+let g:syntastic_haskell_hdevtools_exec = '/home/mark/hdevtools-stack'
 
 " Use the installed style guide
 let g:syntastic_coffee_coffeelint_args = "--csv --file ~/.vim/bundle/coffeescript-style-guide/coffeelint.json" 
@@ -412,14 +412,6 @@ map <leader>e :Errors<cr>
 
 " Close Errors list
 map <leader>lc :lclose<cr>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => ghc-mod
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <silent> tw :GhcModTypeInsert<CR>
-map <silent> ts :GhcModSplitFunCase<CR>
-map <silent> tq :GhcModType<CR>
-map <silent> te :GhcModTypeClear<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
