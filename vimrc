@@ -360,6 +360,7 @@ map <leader>pp :setlocal paste!<cr>
 " FZF support
 set rtp+=~/.fzf
 map <F2> :FZF<cr>
+let g:fzf_command_prefix = 'Fzf'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mark's mis-spellings
