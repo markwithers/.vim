@@ -281,7 +281,7 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 " Make 0 go to the first text on the line, not the far left. More useful
 map 0 ^
 
-" Delete trailing white space on save, useful for Python and CoffeeScript ;)
+" Delete trailing white space on save
 func! DeleteTrailingWS()
   exe "normal mz"
   %s/\s\+$//ge
@@ -289,8 +289,6 @@ func! DeleteTrailingWS()
 endfunc
 
 autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
-autocmd BufWrite *.cjsx :call DeleteTrailingWS()
 autocmd BufWrite *.js :call DeleteTrailingWS()
 autocmd BufWrite *.jsx :call DeleteTrailingWS()
 autocmd BufWrite *.json :call DeleteTrailingWS()
@@ -374,28 +372,19 @@ let g:fzf_command_prefix = 'Fzf'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Filetypes for gf
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:set suffixesadd+=.js,.coffee,.cjsx,.json,.scss,.hs,.lhs
+:set suffixesadd+=.js,.json,.scss,.hs,.lhs
 map gF $F'hgf
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Linting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ,cs compiles Coffeescript. Shows the resulting JS in a horizontal split
-map <leader>cs :CoffeeCompile<cr>
-
 " JS linting
 let g:syntastic_javascript_checkers = ['eslint']
 autocmd FileType javascript let b:syntastic_checkers = findfile('.eslintrc', '.;') != '' ? ['eslint'] : ['eslint']
 
-" Coffeescript Linting
-let g:syntastic_coffee = ['coffeelint']
-
 " Haskell linting
 let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
 let g:syntastic_haskell_hdevtools_exec = '/home/mark/hdevtools-stack'
-
-" Use the installed style guide
-let g:syntastic_coffee_coffeelint_args = "--csv --file ~/.vim/bundle/coffeescript-style-guide/coffeelint.json" 
 
 " Set mode to active (runs whenever you save) and use the location list (:ll)
 let g:syntastic_mode_map = { "mode": "active" }
