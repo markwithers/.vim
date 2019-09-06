@@ -92,3 +92,12 @@
 [submodule "bundle/vim-markdown-preview"]
 	path = bundle/vim-markdown-preview
 	url = git@github.com:JamshedVesuna/vim-markdown-preview.git
+[submodule "bundle/typescript-vim"]
+	path = bundle/typescript-vim
+	url = git://github.com/leafgarland/typescript-vim.git
+[submodule "bunde/prettier"]
+	path = bunde/prettier
+	url = https://github.com/prettier/vim-prettier
+[submodule "bundle/vim-you-complete-me"]
+	path = bundle/vim-you-complete-me
+	url = git@github.com:Valloric/YouCompleteMe.git

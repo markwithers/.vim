@@ -38,11 +38,27 @@
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Pathogen package manager
-execute pathogen#infect()
 
-" Automatically build help files for plugins
-Helptags
+call plug#begin('~/.vim/plugged')
+
+Plug 'itchyny/lightline.vim'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'mxw/vim-jsx'
+Plug 'Valloric/YouCompleteMe'
+Plug 'tpope/vim-vinegar'
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'w0rp/ale'
+Plug 'jlanzarotta/bufexplorer'
+Plug 'rking/ag.vim'
+Plug 'jparise/vim-graphql'
+Plug 'gcmt/wildfire.vim'
+
+Plug 'mhartington/oceanic-next'
+Plug 'lifepillar/vim-solarized8'
+
+call plug#end()
 
 " show line numbers
 set number
@@ -135,7 +151,7 @@ set splitright
 syntax enable
 
 " colour scheme
-colorscheme Tomorrow-Night
+colorscheme OceanicNext
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -148,13 +164,14 @@ if has("gui_running")
     set guioptions-=R
     set guioptions-=m
     set guifont=Monaco\ 10
-    colorscheme Tomorrow-Night
+    colorscheme OceanicNext
 endif
 
 " extra colour options
 let base16colorspace=256
 set background=dark
 set t_Co=256
+set termguicolors
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -191,9 +208,6 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
-" Lints XML in the current file
-map <leader>xx :%!xmllint --format -<CR>
-
 """"""""""""""""""""""""""""""
 " => Visual mode related
 """"""""""""""""""""""""""""""
@@ -228,18 +242,15 @@ map <leader>bd :Bclose<cr>
 " Close all the buffers
 map <leader>ba :1,1000 bd!<cr>
 
+" Open bufExplore in a split
+map <leader>bv :BufExplorerVerticalSplit<cr>
+map <leader>bh :BufExplorerHorizontalSplit<cr>
+
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
-
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers 
 try
@@ -294,17 +305,8 @@ autocmd BufWrite *.jsx :call DeleteTrailingWS()
 autocmd BufWrite *.json :call DeleteTrailingWS()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => grep searching and cope displaying
+" => cope display
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Open grep and put the cursor in the right position
-map <leader>gr :grep! -R  .<left><left>
-
-" Grep as a proper vim command
-:nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>
-
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
-
 " Do :help cope if you are unsure what cope is. It's super useful!
 map <leader>cc :botright cope<cr>
 map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
@@ -370,38 +372,36 @@ let g:fzf_command_prefix = 'Fzf'
 :iabbrev flase false
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Filetypes for gf
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:set suffixesadd+=.js,.json,.scss,.hs,.lhs
-map gF $F'hgf
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Linting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" JS linting
-let g:syntastic_javascript_checkers = ['eslint']
-autocmd FileType javascript let b:syntastic_checkers = findfile('.eslintrc', '.;') != '' ? ['eslint'] : ['eslint']
 
-" Haskell linting
-let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
-let g:syntastic_haskell_hdevtools_exec = '/home/mark/hdevtools-stack'
+" Find references
+map <leader>r :YcmCompleter GoToReferences<cr>
 
-" Set mode to active (runs whenever you save) and use the location list (:ll)
-let g:syntastic_mode_map = { "mode": "active" }
-let g:syntastic_always_populate_loc_list = 1
+" Go to definition
+map <leader>d :YcmCompleter GoTo<cr>
 
-" checks on open
-let g:syntastic_check_on_open = 1
+" Fixit
+map <leader>f :YcmCompleter FixIt<cr>
 
-" highlight in place
-let g:syntastic_enable_signs = 1
-let g:syntastic_enable_highlighting = 1
+" Describe types
+map <leader>t :YcmCompleter GetType<cr>
+
+" Auto-complete?
+let g:ale_completion_enabled = 1
+
+" Error settings
+let g:ale_set_loclist = 1
 
 " Display Errors list
-map <leader>e :Errors<cr>
+map <leader>e :lop<cr>
 
 " Close Errors list
 map <leader>lc :lclose<cr>
+
+" prettier on save
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.html Prettier
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
