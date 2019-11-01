@@ -41,7 +41,6 @@
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'itchyny/lightline.vim'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'mxw/vim-jsx'
 Plug 'Valloric/YouCompleteMe'
@@ -54,6 +53,10 @@ Plug 'jlanzarotta/bufexplorer'
 Plug 'rking/ag.vim'
 Plug 'jparise/vim-graphql'
 Plug 'gcmt/wildfire.vim'
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'easymotion/vim-easymotion'
+Plug 'SirVer/ultisnips'
 
 Plug 'mhartington/oceanic-next'
 Plug 'lifepillar/vim-solarized8'
@@ -264,6 +267,10 @@ if has('nvim')
   :tnoremap <Esc> <C-\><C-n>
 endif
 
+" Easymotion
+map <Leader> <Plug>(easymotion-prefix)
+map <Leader>l <Plug>(easymotion-s2)
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -322,6 +329,13 @@ let g:lightline.subseparator = { 'left': '', 'right': '' }
 function! LightLineFilename()
   return expand('%')
 endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Lightline setup
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+let g:UltiSnipsExpandTrigger="<C-s>"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
