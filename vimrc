@@ -59,7 +59,6 @@ Plug 'easymotion/vim-easymotion'
 Plug 'SirVer/ultisnips'
 
 Plug 'mhartington/oceanic-next'
-Plug 'lifepillar/vim-solarized8'
 
 call plug#end()
 
@@ -147,14 +146,13 @@ set tm=500
 set splitbelow
 set splitright
 
+set mouse=a
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
-
-" colour scheme
-colorscheme OceanicNext
 
 " extra colour options
 let base16colorspace=256
@@ -167,6 +165,9 @@ set encoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
+
+" colour scheme
+colorscheme OceanicNext
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -311,31 +312,19 @@ map <leader>sa zg
 map <leader>s? z=
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Lightline setup
+" => Airline setup
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:lightline = {
-    \   'component_function': {
-    \     'filename': 'LightLineFilename'
-    \   },
-    \   'component': {
-    \     'percent': '',
-    \     'fileencoding': '',
-    \     'fileformat': ''
-    \   }
-    \ }
 
-let g:lightline.subseparator = { 'left': '', 'right': '' }
-
-function! LightLineFilename()
-  return expand('%')
-endfunction
+let g:airline_powerline_fonts = 1
+let g:airline_theme='badwolf'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Lightline setup
+" => Ultisnips setup
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 let g:UltiSnipsExpandTrigger="<C-s>"
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
