@@ -57,8 +57,10 @@ Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'easymotion/vim-easymotion'
 Plug 'SirVer/ultisnips'
+Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'mhartington/oceanic-next'
+Plug 'crusoexia/vim-monokai'
 
 call plug#end()
 
@@ -167,7 +169,7 @@ set encoding=utf8
 set ffs=unix,dos,mac
 
 " colour scheme
-colorscheme OceanicNext
+colorscheme monokai
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -219,12 +221,6 @@ map <c-space> ?
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
-
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>
