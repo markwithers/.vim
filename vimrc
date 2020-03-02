@@ -43,15 +43,20 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'mxw/vim-jsx'
+Plug 'purescript-contrib/purescript-vim'
+Plug 'jparise/vim-graphql'
+
 Plug 'Valloric/YouCompleteMe'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'branch': 'release/0.x' }
+Plug 'w0rp/ale'
+Plug 'eagletmt/neco-ghc'
+Plug 'bitc/vim-hdevtools'
+
 Plug 'tpope/vim-vinegar'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-Plug 'w0rp/ale'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'rking/ag.vim'
-Plug 'jparise/vim-graphql'
 Plug 'gcmt/wildfire.vim'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -160,7 +165,6 @@ syntax enable
 let base16colorspace=256
 set background=dark
 set t_Co=256
-set termguicolors
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
