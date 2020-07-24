@@ -46,7 +46,7 @@ Plug 'mxw/vim-jsx'
 Plug 'purescript-contrib/purescript-vim'
 Plug 'jparise/vim-graphql'
 
-Plug 'Valloric/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'branch': 'release/0.x' }
 Plug 'w0rp/ale'
 Plug 'eagletmt/neco-ghc'
@@ -64,8 +64,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'SirVer/ultisnips'
 Plug 'christoomey/vim-tmux-navigator'
 
-Plug 'mhartington/oceanic-next'
 Plug 'crusoexia/vim-monokai'
+Plug 'jacoborus/tender.vim'
 
 call plug#end()
 
@@ -236,6 +236,9 @@ map <leader>ba :1,1000 bd!<cr>
 map <leader>be :BufExplorer<cr>
 map <leader>bv :BufExplorerVerticalSplit<cr>
 map <leader>bh :BufExplorerHorizontalSplit<cr>
+
+" Open list of all files modified in git
+map <leader>bg :FzfGFiles?<cr>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
