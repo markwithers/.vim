@@ -41,31 +41,43 @@
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'mxw/vim-jsx'
-Plug 'purescript-contrib/purescript-vim'
-Plug 'jparise/vim-graphql'
+" Syntax Highlighting
+Plug 'nvim-treesitter/nvim-treesitter'
 
-Plug 'ycm-core/YouCompleteMe'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'branch': 'release/0.x' }
+" Completion
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
+
+" Linting
 Plug 'w0rp/ale'
-Plug 'eagletmt/neco-ghc'
-Plug 'bitc/vim-hdevtools'
+Plug 'nathunsmitty/nvim-ale-diagnostic'
 
-Plug 'tpope/vim-vinegar'
+" Formatting
+Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'branch': 'release/0.x' }
+Plug 'sdiehl/vim-ormolu'
+
+" Fuzzy find
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+" Utils
+Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fugitive'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'rking/ag.vim'
-Plug 'gcmt/wildfire.vim'
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'easymotion/vim-easymotion'
-Plug 'SirVer/ultisnips'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'kburdett/vim-nuuid'
+" Plug 'SirVer/ultisnips'
 
-Plug 'crusoexia/vim-monokai'
-Plug 'jacoborus/tender.vim'
+" Colors
+Plug 'jim-at-jibba/ariake-vim-colors'
+Plug 'sainnhe/sonokai'
+Plug 'glepnir/zephyr-nvim'
+Plug 'bluz71/vim-nightfly-guicolors'
+
+" Extra syntax highlighting
+Plug 'rescript-lang/vim-rescript'
 
 call plug#end()
 
@@ -95,7 +107,7 @@ nmap <leader>w :wa<cr>
 set tags=tags;/
 
 " highlights the 100th column for a visual guide to good length
-set cc=100
+" set cc=100
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -158,13 +170,17 @@ set mouse=a
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if (has("termguicolors"))
+ set termguicolors
+endif
+
 " Enable syntax highlighting
 syntax enable
 
 " extra colour options
 let base16colorspace=256
 set background=dark
-set t_Co=256
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -173,7 +189,7 @@ set encoding=utf8
 set ffs=unix,dos,mac
 
 " colour scheme
-colorscheme monokai
+colorscheme sonokai
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -219,9 +235,8 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 map j gj
 map k gk
 
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+" Map <Space> to / (search)
 map <space> /
-map <c-space> ?
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
@@ -239,12 +254,6 @@ map <leader>bh :BufExplorerHorizontalSplit<cr>
 
 " Open list of all files modified in git
 map <leader>bg :FzfGFiles?<cr>
-
-" Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
 
 " Specify the behavior when switching between buffers 
 try
@@ -297,10 +306,10 @@ autocmd BufWrite *.json :call DeleteTrailingWS()
 " => cope display
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Do :help cope if you are unsure what cope is. It's super useful!
-map <leader>cc :botright cope<cr>
-map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
+" map <leader>cc :botright cope<cr>
+" map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
+" map <leader>n :cn<cr>
+" map <leader>p :cp<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
@@ -315,18 +324,11 @@ map <leader>sa zg
 map <leader>s? z=
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Airline setup
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:airline_powerline_fonts = 1
-let g:airline_theme='badwolf'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Ultisnips setup
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:UltiSnipsSnippetDirectories=["UltiSnips"]
-let g:UltiSnipsExpandTrigger="<C-s>"
+" let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+" let g:UltiSnipsExpandTrigger="<C-s>"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -342,7 +344,6 @@ map <leader>q :e ~/buffer<cr>
 map <leader>pp :setlocal paste!<cr>
 
 " FZF support
-set rtp+=~/.fzf
 map <F2> :FZF<cr>
 let g:fzf_command_prefix = 'Fzf'
 
@@ -360,22 +361,34 @@ let g:fzf_command_prefix = 'Fzf'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Find references
-map <leader>r :YcmCompleter GoToReferences<cr>
+map <leader>r :lua vim.lsp.buf.references()<cr>
 
 " Go to definition
-map <leader>d :YcmCompleter GoTo<cr>
+map <leader>d :lua vim.lsp.buf.definition()<cr>
 
 " Fixit
-map <leader>f :YcmCompleter FixIt<cr>
+map <leader>f :lua vim.lsp.buf.code_action()<cr>
 
 " Describe types
-map <leader>t :YcmCompleter GetType<cr>
+map <leader>t :lua vim.lsp.buf.hover()<cr>
+
+" Rename
+map <leader>rn :lua vim.lsp.buf.rename()<cr>
+
+map <leader>fm :lua vim.lsp.buf.formatting_sync(nil, 1000)<cr>
+
 
 " Auto-complete?
-let g:ale_completion_enabled = 1
+" let g:ale_completion_enabled = 1
 
 " Error settings
 let g:ale_set_loclist = 1
+
+" Disable ales lsp
+let g:ale_disable_lsp = 1
+
+" Show errors on hover
+" let g:ale_virtualtext_cursor = 1
 
 " Display Errors list
 map <leader>e :lop<cr>
@@ -386,6 +399,36 @@ map <leader>lc :lclose<cr>
 " prettier on save
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.html Prettier
+
+
+" set up haskell
+lua require'lspconfig'.hls.setup{}
+
+" attach completion to buffers
+autocmd BufEnter * lua require'completion'.on_attach()
+
+" get completion in omnifunc popups
+autocmd BufEnter * set omnifunc=v:lua.vim.lsp.omnifunc
+
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+
+" let g:completion_enable_snippet = 'UltiSnips'
+let g:completion_enable_auto_signature = 1
+let g:completion_enable_auto_paren = 0
+set completeopt=menuone,noinsert,noselect
+
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" trigger autocomplete in insert mode
+inoremap <c-space> <c-x><c-o>
+
+" Fold stuff
+set nofoldenable
+set foldlevel=99
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
