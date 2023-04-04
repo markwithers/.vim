@@ -37,20 +37,22 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
 
-call plug#begin('~/.vim/plugged')
+
+
+
+
+call plug#begin()
 
 " Syntax Highlighting
 Plug 'nvim-treesitter/nvim-treesitter'
 
 " Completion
+Plug 'williamboman/nvim-lsp-installer'
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
 
 " Linting
-Plug 'w0rp/ale'
-Plug 'nathunsmitty/nvim-ale-diagnostic'
+Plug 'dense-analysis/ale'
 
 " Formatting
 Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'branch': 'release/0.x' }
@@ -68,16 +70,23 @@ Plug 'rking/ag.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'kburdett/vim-nuuid'
-" Plug 'SirVer/ultisnips'
 
 " Colors
 Plug 'jim-at-jibba/ariake-vim-colors'
 Plug 'sainnhe/sonokai'
-Plug 'glepnir/zephyr-nvim'
 Plug 'bluz71/vim-nightfly-guicolors'
 
 " Extra syntax highlighting
 Plug 'rescript-lang/vim-rescript'
+
+" hrsh7th
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
 
 call plug#end()
 
@@ -198,6 +207,7 @@ colorscheme sonokai
 set nobackup
 set nowb
 set noswapfile
+set backupcopy=yes
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -303,7 +313,7 @@ autocmd BufWrite *.jsx :call DeleteTrailingWS()
 autocmd BufWrite *.json :call DeleteTrailingWS()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => cope display
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Do :help cope if you are unsure what cope is. It's super useful!
 " map <leader>cc :botright cope<cr>
@@ -322,14 +332,6 @@ map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Ultisnips setup
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" let g:UltiSnipsSnippetDirectories=["UltiSnips"]
-" let g:UltiSnipsExpandTrigger="<C-s>"
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
@@ -375,20 +377,18 @@ map <leader>t :lua vim.lsp.buf.hover()<cr>
 " Rename
 map <leader>rn :lua vim.lsp.buf.rename()<cr>
 
+" Format
 map <leader>fm :lua vim.lsp.buf.formatting_sync(nil, 1000)<cr>
-
-
-" Auto-complete?
-" let g:ale_completion_enabled = 1
 
 " Error settings
 let g:ale_set_loclist = 1
 
-" Disable ales lsp
+" Disable lsp
 let g:ale_disable_lsp = 1
 
-" Show errors on hover
-" let g:ale_virtualtext_cursor = 1
+" autocomplete
+let g:ale_completion_enabled = 1
+
 
 " Display Errors list
 map <leader>e :lop<cr>
@@ -396,33 +396,29 @@ map <leader>e :lop<cr>
 " Close Errors list
 map <leader>lc :lclose<cr>
 
-" prettier on save
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.html Prettier
-
-
 " set up haskell
 lua require'lspconfig'.hls.setup{}
 
-" attach completion to buffers
-autocmd BufEnter * lua require'completion'.on_attach()
+" set up Scala
+lua << EOF
+require("nvim-lsp-installer").setup({
+  ensure_installed = { "metals" }
+})
+EOF
 
-" get completion in omnifunc popups
-autocmd BufEnter * set omnifunc=v:lua.vim.lsp.omnifunc
+lua require'lspconfig'.metals.setup{}
 
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+" set up typescript
+lua require'lspconfig'.tsserver.setup{}
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx Prettier
 
-" let g:completion_enable_snippet = 'UltiSnips'
-let g:completion_enable_auto_signature = 1
-let g:completion_enable_auto_paren = 0
-set completeopt=menuone,noinsert,noselect
+" set up elm
+lua require'lspconfig'.elmls.setup{}
 
-" Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" format elm on save
+autocmd BufWritePre *.elm :lua vim.lsp.buf.formatting_sync(nil, 1000)
 
-" trigger autocomplete in insert mode
-inoremap <c-space> <c-x><c-o>
 
 " Fold stuff
 set nofoldenable
@@ -459,3 +455,120 @@ function! VisualSelection(direction) range
     let @/ = l:pattern
     let @" = l:saved_reg
 endfunction
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Tailwind
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+lua << EOF
+require("nvim-lsp-installer").setup({
+  ensure_installed = { "tailwindcss" }
+})
+
+require('lspconfig').tailwindcss.setup{
+  filetypes = { "html", "elm" },
+  init_options = {
+    userLanguages = {
+      elm = "html",
+      html = "html"
+    }
+  },
+  settings = {
+    tailwindCSS = {
+      includeLanguages = {
+        elm = "html",
+        html = "html"
+      },
+      classAttributes = { "class", "className", "classList", "ngClass" },
+      experimental = {
+        classRegex = {
+          "\\bclass[\\s(<|]+\"([^\"]*)\"",
+          "\\bclass[\\s(]+\"[^\"]*\"[\\s+]+\"([^\"]*)\"",
+          "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\"",
+          "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\"",
+          "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\"",
+          "\\bclassList[\\s\\[\\(]+\"([^\"]*)\"",
+          "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\"",
+          "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""
+        }
+      },
+      lint = {
+        cssConflict = "warning",
+        invalidApply = "error",
+        invalidConfigPath = "error",
+        invalidScreen = "error",
+        invalidTailwindDirective = "error",
+        invalidVariant = "error",
+        recommendedVariantOrder = "warning"
+      },
+      validate = true
+    }
+  }
+}
+EOF
+
+lua <<EOF
+  -- Set up nvim-cmp.
+  local cmp = require'cmp'
+
+  cmp.setup({
+    snippet = {
+      -- REQUIRED - you must specify a snippet engine
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+      end,
+    },
+    window = {
+      completion = cmp.config.window.bordered(),
+      documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    }),
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' },
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- Set configuration for specific filetype.
+  cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })
+
+  -- Set up lspconfig.
+  local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+  require('lspconfig').elmls.setup {
+    capabilities = capabilities
+  }
+EOF
