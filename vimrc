@@ -35,24 +35,29 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
+" => Plugin
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-
-
 
 call plug#begin()
 
 " Syntax Highlighting
 Plug 'nvim-treesitter/nvim-treesitter'
 
-" Completion
+" Language server
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'neovim/nvim-lspconfig'
 
 " Linting
 Plug 'dense-analysis/ale'
+
+" Completion
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
 
 " Formatting
 Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'branch': 'release/0.x' }
@@ -79,16 +84,11 @@ Plug 'bluz71/vim-nightfly-guicolors'
 " Extra syntax highlighting
 Plug 'rescript-lang/vim-rescript'
 
-" hrsh7th
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
-
 call plug#end()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " show line numbers
 set number
@@ -386,10 +386,6 @@ let g:ale_set_loclist = 1
 " Disable lsp
 let g:ale_disable_lsp = 1
 
-" autocomplete
-let g:ale_completion_enabled = 1
-
-
 " Display Errors list
 map <leader>e :lop<cr>
 
@@ -507,6 +503,11 @@ require('lspconfig').tailwindcss.setup{
   }
 }
 EOF
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Nvim-cmp
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 lua <<EOF
   -- Set up nvim-cmp.
