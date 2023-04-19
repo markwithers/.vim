@@ -42,6 +42,7 @@ call plug#begin()
 
 " Syntax Highlighting
 Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'purescript-contrib/purescript-vim'
 
 " Language server
 Plug 'williamboman/nvim-lsp-installer'
@@ -83,6 +84,8 @@ Plug 'bluz71/vim-nightfly-guicolors'
 
 " Extra syntax highlighting
 Plug 'rescript-lang/vim-rescript'
+
+Plug 'github/copilot.vim'
 
 call plug#end()
 
@@ -411,6 +414,9 @@ autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx Prettier
 
 " set up elm
 lua require'lspconfig'.elmls.setup{}
+
+" set up purescript
+lua require'lspconfig'.purescriptls.setup{}
 
 " format elm on save
 autocmd BufWritePre *.elm :lua vim.lsp.buf.formatting_sync(nil, 1000)
